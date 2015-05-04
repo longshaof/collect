@@ -1,0 +1,4 @@
+sudo apt-get install figlet
+sudo apt-get install toilet
+apt-get install fortune cowsay 
+apt-get install aview
