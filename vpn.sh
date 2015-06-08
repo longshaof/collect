@@ -29,7 +29,7 @@ certtool --generate-self-signed --load-privkey ca-key.pem --template ca.tmpl --o
 
 cat << _EOF_ >server.tmpl
 cn = "${ip}"
-organization = "Your fancy name"
+organization = "Boybeta.com"
 expiration_days = 3650
 signing_key
 encryption_key
