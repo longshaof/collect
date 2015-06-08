@@ -6,15 +6,16 @@ ine-dev libnl-route-3-dev -y
 cd /opt
 git clone git://git.infradead.org/ocserv.git 
 cd ocser*
-sed -i s/#define MAX_CONFIG_ENTRIES 96//#define MAX_CONFIG_ENTRIES 250/g 
-/configure --prefix=/usr --sysconfdir=/etc --enable-linux-namespaces
+sed -i 's/#define MAX_CONFIG_ENTRIES 96//#define MAX_CONFIG_ENTRIES 250/g'  src/vpn.h
+/configure 
 make&&make install
 mkdir /etc/ocserv
 cp doc/sample.config /etc/ocserv/ocserv.conf
 mkdir certificates&&cd certificates 
 
+ip=$(ifconfig venet0:0|grep "inet addr:"|awk '{print $2}'|awk -F : '{print $2}')
 cat << _EOF_ >ca.tmpl
-cn = "Boybeta.com VPN"
+cn = "${ip}"
 organization = "Boybeta.com"
 serial = 1
 expiration_days = 3650
@@ -27,7 +28,7 @@ certtool --generate-privkey --outfile ca-key.pem
 certtool --generate-self-signed --load-privkey ca-key.pem --template ca.tmpl --outfile ca-cert.pem
 
 cat << _EOF_ >server.tmpl
-cn = "Your hostname or IP"
+cn = "${ip}"
 organization = "Your fancy name"
 expiration_days = 3650
 signing_key
