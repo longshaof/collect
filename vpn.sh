@@ -42,6 +42,10 @@ certtool --generate-certificate --load-privkey server-key.pem --load-ca-certific
 sudo cp ca-cert.pem /etc/ssl/private/my-ca-cert.pem
 sudo cp server-cert.pem /etc/ssl/private/my-server-cert.pem
 sudo cp server-key.pem /etc/ssl/private/my-server-key.pem
-
+#banner = "Welcome"
+sed -i 's/#auth = "plain[passwd=/etc/ocserv/ocpasswd]"/auth = "plain[passwd=/etc/ocserv/ocpasswd]/g ' /etc/ocserv/ocserv.conf
+sed -i 's/#banner = "Welcome"/banner = "Welcome to athrun's home!"/g'  /etc/ocserv/ocserv.conf
+sed -i 's/try-mtu-discovery = false/try-mtu-discovery = true/g'  /etc/ocserv/ocserv.conf
+sed -i 's/try-mtu-discovery = false/try-mtu-discovery = true/g'  /etc/ocserv/ocserv.conf
 
 pwd
